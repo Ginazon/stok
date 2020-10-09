@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SocialoginButton extends StatelessWidget {
+class SocialLoginButton extends StatelessWidget {
   final String butonText;
   final Color butonColor;
   final Color textColor;
@@ -9,7 +9,7 @@ class SocialoginButton extends StatelessWidget {
   final Widget butonIcon;
   final VoidCallback onPressed;
 
-  const SocialoginButton(
+  const SocialLoginButton(
       {Key key,
       this.butonText,
       this.butonColor,
