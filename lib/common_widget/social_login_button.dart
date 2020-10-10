@@ -64,12 +64,4 @@ class SocialLoginButton extends StatelessWidget {
     );
   }
 }
-//ESKI YONTEM
-/*
-butonIcon != null ? butonIcon : Container(),
-Text(
-butonText,
-style: TextStyle(color: textColor),
-),
-  }
-}*/
+

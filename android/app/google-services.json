@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "838508020614",
+    "firebase_url": "https://stok-b0deb.firebaseio.com",
+    "project_id": "stok-b0deb",
+    "storage_bucket": "stok-b0deb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838508020614:android:7ee5210a85f4f803db2207",
+        "android_client_info": {
+          "package_name": "com.fabrika.stok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838508020614-kk8qoa7s246q83nb3tnuq21vebdcov1o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fabrika.stok",
+            "certificate_hash": "907bb780fb0c16d80022646792ae3d86366cb085"
+          }
+        },
+        {
+          "client_id": "838508020614-lkj4n8nijdo03satk5rrkj9qohhf03kc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD7wyztOAV0qji42cR9CIosk6J23DUarw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838508020614-lkj4n8nijdo03satk5rrkj9qohhf03kc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

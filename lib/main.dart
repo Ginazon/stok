@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:stok/sing_in_page.dart';
+import 'package:stok/landing_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main()  {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
@@ -16,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
 
       ),
-      home: SingInPage(),
+      home: LandingPage(),
     );
   }
 }
