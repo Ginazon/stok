@@ -30,9 +30,15 @@ class _LandingPageState extends State<LandingPage> {
 
   Widget build(BuildContext context) {
     if(_user==null){
-      return SignInPage();
+      return SignInPage(onSignIn: (user){
+        _updateUser(user);
+
+      },);
     }else{
-      return HomePage(user: _user);
+      return HomePage(user: _user,
+      onSignOut: (){
+        _updateUser(null);
+      },);
     }
   }
 
@@ -40,5 +46,10 @@ class _LandingPageState extends State<LandingPage> {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     _user= FirebaseAuth.instance.currentUser;
+  }
+  void _updateUser(User user){
+    setState(() {
+      _user=user;
+    });
   }
 }

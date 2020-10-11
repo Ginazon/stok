@@ -3,6 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:stok/common_widget/social_login_button.dart';
 
 class SignInPage extends StatelessWidget {
+  final Function(User) onSignIn;
+
+  const SignInPage({Key key, @required this.onSignIn}) : super(key: key);
+
+  Future<void> _misafirGirisi() async {
+    UserCredential sonuc= await FirebaseAuth.instance.signInAnonymously();
+    onSignIn(sonuc.user);
+    print("Oturum Açan User ID="+sonuc.user.uid.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,8 +75,5 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Future<void> _misafirGirisi() async {
-   UserCredential sonuc= await FirebaseAuth.instance.signInAnonymously();
-   print("Oturum Açan User ID="+sonuc.user.uid.toString());
-  }
+
 }
