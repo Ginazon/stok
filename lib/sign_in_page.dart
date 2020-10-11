@@ -1,16 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:stok/common_widget/social_login_button.dart';
+import 'package:stok/model/app_user_model.dart';
+import 'package:stok/services/auth_base.dart';
 
 class SignInPage extends StatelessWidget {
-  final Function(User) onSignIn;
 
-  const SignInPage({Key key, @required this.onSignIn}) : super(key: key);
+  final Function(AppUser) onSignIn;
+  final AuthBase authService;
+
+  const SignInPage({Key key, @required this.onSignIn,@required this.authService}) : super(key: key);
 
   Future<void> _misafirGirisi() async {
-    UserCredential sonuc= await FirebaseAuth.instance.signInAnonymously();
-    onSignIn(sonuc.user);
-    print("Oturum Açan User ID="+sonuc.user.uid.toString());
+   AppUser _user = await authService.signInAnonymously();
+
+    onSignIn(_user);
+    print("Oturum Açan User ID="+_user.appUserID);
   }
 
   @override
