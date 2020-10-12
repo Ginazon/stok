@@ -1,51 +1,39 @@
 
 import 'package:flutter/material.dart';
 import 'package:stok/home_page.dart';
+import 'package:stok/locator.dart';
 import 'package:stok/model/app_user_model.dart';
 import 'package:stok/services/auth_base.dart';
+import 'package:stok/services/firebase_auth_service.dart';
 import 'package:stok/sign_in_page.dart';
 
 class LandingPage extends StatefulWidget {
-  final AuthBase authService;
 
-  const LandingPage({Key key, @required this.authService}) : super(key: key);
 
   @override
   _LandingPageState createState() => _LandingPageState();
 }
 
 class _LandingPageState extends State<LandingPage> {
-
+AuthBase authService=locator<FirebaseAuthService>();
   AppUser _user;
-
-
-
-
 
   @override
   void initState() {
     super.initState();
 
     _checkUser();
-
-
-
-
   }
-
-
-
-
 
   @override
 
   Widget build(BuildContext context) {
     if(_user==null){
-      return SignInPage(authService: widget.authService, onSignIn: (user) {
+      return SignInPage( onSignIn: (user) {
         _updateUser(user);
       },);
     }else{
-      return HomePage(authService: widget.authService,
+      return HomePage(
         user: _user,
         onSignOut: () {
           _updateUser(null);
@@ -61,7 +49,7 @@ class _LandingPageState extends State<LandingPage> {
   Future <void> _checkUser() async {
 
 
-    _user = await widget.authService.currentUser();
+    _user = await authService.currentUser();
   }
 
 

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:stok/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:stok/locator.dart';
 import 'package:stok/services/fake_auth_services.dart';
 import 'package:stok/services/firebase_auth_service.dart';
 
-void main()  {
+
+Future<void> main()  async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
+  setupLocator();
 
   runApp(MyApp());
 }
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
 
       ),
-      home: LandingPage(authService:FakeAuthServices(),),
+      home: LandingPage(),
     );
   }
 }
