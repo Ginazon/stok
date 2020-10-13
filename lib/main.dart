@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stok/landing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:stok/locator.dart';
-import 'package:stok/services/fake_auth_services.dart';
-import 'package:stok/services/firebase_auth_service.dart';
+import 'package:stok/viewmodel/app_user_view_model.dart';
 
-
-Future<void> main()  async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setupLocator();
@@ -23,11 +22,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Stok',
       debugShowCheckedModeBanner: false,
-      theme:ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.teal,
 
       ),
-      home: LandingPage(),
+      home: ChangeNotifierProvider(
+          create: (context) => AppUserViewModel(),
+          child: LandingPage()),
     );
   }
 }

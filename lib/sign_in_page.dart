@@ -1,30 +1,22 @@
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stok/common_widget/social_login_button.dart';
-import 'package:stok/locator.dart';
 import 'package:stok/model/app_user_model.dart';
-import 'package:stok/services/auth_base.dart';
-import 'package:stok/services/firebase_auth_service.dart';
+import 'package:stok/viewmodel/app_user_view_model.dart';
 
 class SignInPage extends StatelessWidget {
-  AuthBase authService=locator<FirebaseAuthService>();
-  final Function(AppUser) onSignIn;
+  Future<void> _misafirGirisi(BuildContext context) async {
+    final _appUserModel = Provider.of<AppUserViewModel>(context,listen: false);
+    AppUser _user = await _appUserModel.signInAnonymously();
 
-
-   SignInPage({Key key, @required this.onSignIn,}) : super(key: key);
-
-  Future<void> _misafirGirisi() async {
-   AppUser _user = await authService.signInAnonymously();
-
-    onSignIn(_user);
-    print("Oturum Açan User ID="+_user.appUserID);
+    print("Oturum Açan User ID=" + _user.appUserID);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:Text('Stok Uygulaması'),
+        title: Text('Stok Uygulaması'),
         elevation: 0,
       ),
       backgroundColor: Colors.grey.shade300,
@@ -67,11 +59,16 @@ class SignInPage extends StatelessWidget {
               textColor: Colors.white,
             ),
             SocialLoginButton(
-              onPressed: _misafirGirisi,
+              onPressed: () => _misafirGirisi(context),
               butonColor: Colors.teal,
-              butonIcon: Icon(Icons.supervised_user_circle,color: Colors.white,size: 35,),
+              butonIcon: Icon(
+                Icons.supervised_user_circle,
+                color: Colors.white,
+                size: 35,
+              ),
               butonText: "Misafir Girişi",
-              radius: 10, yukseklik: 45,
+              radius: 10,
+              yukseklik: 45,
               textColor: Colors.white,
             ),
 

@@ -11,10 +11,15 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
   AppUserRepository _appUserRepository=locator<AppUserRepository>();
   AppUser _user;
 
+  AppUser get user => _user;
+
   ViewState get state => _state;
   set state(ViewState value) {
     _state = value;
     notifyListeners();
+  }
+  AppUserViewModel(){
+    currentUser();
   }
 
   @override
@@ -37,7 +42,9 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
   Future<bool> signOut() async{
     try{
       state=ViewState.Busy;
-      return await _appUserRepository.signOut();
+      bool sonuc=await _appUserRepository.signOut();
+      _user=null;
+      return sonuc;
     }catch(e){
       print("AppUserViewModel/signOut Metodu..........................HATASI"+e.toString());
       return false;
