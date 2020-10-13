@@ -24,9 +24,7 @@ AuthBase authService=locator<FirebaseAuthService>();
 
     _checkUser();
   }
-
   @override
-
   Widget build(BuildContext context) {
     if(_user==null){
       return SignInPage( onSignIn: (user) {
@@ -40,22 +38,9 @@ AuthBase authService=locator<FirebaseAuthService>();
         },);
     }
   }
-
-
-
-
-
-
   Future <void> _checkUser() async {
-
-
     _user = await authService.currentUser();
   }
-
-
-
-
-
   void _updateUser(AppUser user) {
     setState(() {
       _user = user;
