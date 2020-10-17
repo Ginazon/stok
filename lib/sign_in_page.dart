@@ -6,11 +6,20 @@ import 'package:stok/viewmodel/app_user_view_model.dart';
 
 class SignInPage extends StatelessWidget {
   Future<void> _misafirGirisi(BuildContext context) async {
-    final _appUserModel = Provider.of<AppUserViewModel>(context,listen: false);
+    final _appUserModel = Provider.of<AppUserViewModel>(context, listen: false);
     AppUser _user = await _appUserModel.signInAnonymously();
 
     print("Oturum Açan User ID=" + _user.appUserID);
   }
+
+  Future<void> _googleIleGiris(BuildContext context) async {
+    final _appUserModel = Provider.of<AppUserViewModel>(context, listen: false);
+    AppUser _user = await _appUserModel.signInWithGoogle();
+    if(_user != null)
+
+    print("Oturum Açan User ID=" + _user.appUserID);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +29,22 @@ class SignInPage extends StatelessWidget {
         elevation: 0,
       ),
       backgroundColor: Colors.grey.shade300,
-      body:Container(
+      body: Container(
         padding: EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children:<Widget> [
-            Text('Oturum Açınız',textAlign:TextAlign.center,style: TextStyle(fontSize: 18),),SizedBox(height: 16,),
+          children: <Widget>[
+            Text('Oturum Açınız', textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),), SizedBox(height: 16,),
             SocialLoginButton(
-              butonText: "Gmail ile Giriş Yap",
+              butonText: "Google ile Giriş Yap",
               textColor: Colors.black87,
               butonColor: Colors.white,
               yukseklik: 45,
               butonIcon: Image.asset("images/google-logo.png"),
               radius: 10,
-              onPressed: () {},),
+              onPressed: () => _googleIleGiris(context),),
 
             SocialLoginButton(
               butonText: "Facebook ile Giriş Yap",
@@ -78,6 +88,6 @@ class SignInPage extends StatelessWidget {
       ),
     );
   }
-
-
 }
+
+

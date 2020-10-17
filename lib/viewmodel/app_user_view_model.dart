@@ -60,16 +60,29 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
       state=ViewState.Busy;
      _user= await _appUserRepository.signInAnonymously();
       return _user;
-
-    }catch(e){
-      print("AppUserViewModel/signInAnonymously Metodu..........................HATASI"+e.toString());
+    } catch (e) {
+      print(
+          "AppUserViewModel/signInAnonymously Metodu..........................HATASI" +
+              e.toString());
       return null;
-
-    }finally{
-      state=ViewState.Idle;
+    } finally {
+      state = ViewState.Idle;
     }
   }
 
-
-
+  @override
+  Future<AppUser> signInWithGoogle() async {
+    try {
+      state = ViewState.Busy;
+      _user = await _appUserRepository.signInWithGoogle();
+      return _user;
+    } catch (e) {
+      print(
+          "AppUserViewModel/signInWithGoogle Metodu..........................HATASI" +
+              e.toString());
+      return null;
+    } finally {
+      state = ViewState.Idle;
+    }
+  }
 }

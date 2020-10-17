@@ -8,36 +8,44 @@ enum AppMode {DEBUG,RELEASE}
 
 class AppUserRepository implements AuthBase{
 
-  FirebaseAuthService _firebaseAuthService=locator<FirebaseAuthService>();
-  FakeAuthServices _fakeAuthServices=locator<FakeAuthServices>();
+  FirebaseAuthService _firebaseAuthService = locator<FirebaseAuthService>();
+  FakeAuthServices _fakeAuthServices = locator<FakeAuthServices>();
 
-  AppMode appMode=AppMode.DEBUG;
-
+  AppMode appMode = AppMode.RELEASE;
 
   @override
   Future<AppUser> currentUser() async {
-  if(appMode==AppMode.DEBUG){
-    return await _fakeAuthServices.currentUser();
-  }else{
-    return await _firebaseAuthService.currentUser();
-  }
+    if (appMode == AppMode.DEBUG) {
+      return await _fakeAuthServices.currentUser();
+    } else {
+      return await _firebaseAuthService.currentUser();
+    }
   }
 
   @override
-  Future<AppUser> signInAnonymously()async {
-    if(appMode==AppMode.DEBUG){
+  Future<bool> signOut() async {
+    if (appMode == AppMode.DEBUG) {
+      return await _fakeAuthServices.signOut();
+    } else {
+      return await _firebaseAuthService.signOut();
+    }
+  }
+
+  @override
+  Future<AppUser> signInAnonymously() async {
+    if (appMode == AppMode.DEBUG) {
       return await _fakeAuthServices.signInAnonymously();
-    }else{
+    } else {
       return await _firebaseAuthService.signInAnonymously();
     }
   }
 
   @override
-  Future<bool> signOut()async {
-    if(appMode==AppMode.DEBUG){
-      return await _fakeAuthServices.signOut();
-    }else{
-      return await _firebaseAuthService.signOut();
+  Future<AppUser> signInWithGoogle() async {
+    if (appMode == AppMode.DEBUG) {
+      return await _fakeAuthServices.signInWithGoogle();
+    } else {
+      return await _firebaseAuthService.signInWithGoogle();
     }
   }
 

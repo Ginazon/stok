@@ -21,5 +21,11 @@ class FakeAuthServices implements AuthBase{
     return  Future.delayed(Duration(seconds: 1),()=> AppUser(appUserID: fakeUserID));
   }
 
+  @override
+  Future<AppUser> signInWithGoogle() {
+
+    throw UnimplementedError();
+  }
+
 
 }
