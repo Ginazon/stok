@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stok/app/sign_in/email_sifre_giris_ve_kayit.dart';
 import 'package:stok/common_widget/social_login_button.dart';
 import 'package:stok/model/app_user_model.dart';
 import 'package:stok/viewmodel/app_user_view_model.dart';
@@ -18,6 +20,11 @@ class SignInPage extends StatelessWidget {
     if(_user != null)
 
     print("Oturum Açan User ID=" + _user.appUserID);
+  }
+  void _emailveSifreGirisi(BuildContext context){
+    Navigator.of(context).push(CupertinoPageRoute(
+        fullscreenDialog: true,
+        builder: (context)=>EmailVeSifreLoginPage()));
   }
 
 
@@ -49,14 +56,14 @@ class SignInPage extends StatelessWidget {
             SocialLoginButton(
               butonText: "Facebook ile Giriş Yap",
               butonIcon: Image.asset("images/facebook-logo.png"),
-              onPressed: () {},
+              onPressed: (){},
               butonColor: Color(0xFF334D92),
               radius: 10,
               yukseklik: 45,
               textColor: Colors.white,
             ),
             SocialLoginButton(
-              onPressed: () {},
+              onPressed: () =>_emailveSifreGirisi(context),
               butonIcon: Icon(
                 Icons.email,
                 color: Colors.white,

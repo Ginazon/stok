@@ -73,6 +73,32 @@ class FirebaseAuthService implements AuthBase{
 
   AppUser _appUserFromFirebase(User user) {
     if (user == null) return null;
-    return AppUser(appUserID: user.uid);
+    return AppUser(appUserID: user.uid,email: user.email);
+  }
+
+  @override
+  Future<AppUser> createUserWithEmailandPassword(String email, String sifre) async{
+    try {
+      UserCredential sonuc = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: sifre);
+      return _appUserFromFirebase(sonuc.user);
+    } catch (e) {
+      print(
+          "FirebaseAuthService/creatUserWithEmailandPassword()........ HATASI ".toString());
+      return null;
+    }
+
+  }
+
+  @override
+  Future<AppUser> signInWithEmailandPassword(String email, String sifre) async{
+    try {
+      UserCredential sonuc = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: sifre);
+      return _appUserFromFirebase(sonuc.user);
+    } catch (e) {
+      print(
+          "FirebaseAuthService/signInWithEmailandPassword()........ HATASI ".toString());
+      return null;
+    }
+
   }
 }

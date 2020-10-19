@@ -7,18 +7,21 @@ import 'package:stok/services/auth_base.dart';
 enum ViewState {Idle,Busy}
 
 class AppUserViewModel with ChangeNotifier implements AuthBase{
-  ViewState _state =ViewState.Idle;
-  AppUserRepository _appUserRepository=locator<AppUserRepository>();
+  ViewState _state = ViewState.Idle;
+  AppUserRepository _appUserRepository = locator<AppUserRepository>();
   AppUser _user;
+  String emailHataMesaji, sifreHataMesaji;
 
   AppUser get user => _user;
 
   ViewState get state => _state;
+
   set state(ViewState value) {
     _state = value;
     notifyListeners();
   }
-  AppUserViewModel(){
+
+  AppUserViewModel() {
     currentUser();
   }
 
@@ -85,4 +88,61 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
       state = ViewState.Idle;
     }
   }
+
+  @override
+  Future<AppUser> createUserWithEmailandPassword(String email,
+      String sifre) async {
+    try {
+      if (_emailSifreKontrol(email, sifre)) {
+        state = ViewState.Busy;
+        _user =
+        await _appUserRepository.createUserWithEmailandPassword(email, sifre);
+        return _user;
+      } else
+        return null;
+    } catch (e) {
+      print(
+          "AppUserViewModel/creatUserWithEmailandPassword Metodu..........................HATASI" +
+              e.toString());
+      return null;
+    } finally {
+      state = ViewState.Idle;
+    }
+  }
+
+  @override
+  Future<AppUser> signInWithEmailandPassword(String email, String sifre) async {
+    try {
+      if (_emailSifreKontrol(email, sifre)) {
+        state = ViewState.Busy;
+        _user =
+        await _appUserRepository.signInWithEmailandPassword(email, sifre);
+        return _user;
+      } else
+        return null;
+    } catch (e) {
+      print(
+          "AppUserViewModel/signInWithEmailandPassword Metodu..........................HATASI" +
+              e.toString());
+      return null;
+    } finally {
+      state = ViewState.Idle;
+    }
+  }
+
+  bool _emailSifreKontrol(String email, String sifre) {
+    var sonuc = true;
+    if (sifre.length < 6) {
+      sifreHataMesaji = "Şifre en az 6 karakterden oluşmalı";
+      sonuc = false;
+    } else
+      sifreHataMesaji = null;
+    if (!email.contains('@')) {
+      emailHataMesaji = "Doğru bir email adresi yazınız";
+      sonuc = false;
+    } else
+      emailHataMesaji = null;
+    return sonuc;
+  }
+
 }

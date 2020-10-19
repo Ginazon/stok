@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stok/home_page.dart';
-import 'package:stok/sign_in_page.dart';
+import 'package:stok/app/sign_in/sign_in_page.dart';
+import 'file:///D:/stok/stok/lib/app/home_page.dart';
 import 'package:stok/viewmodel/app_user_view_model.dart';
 
 class LandingPage extends StatelessWidget {
