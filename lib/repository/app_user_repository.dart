@@ -50,7 +50,7 @@ class AppUserRepository implements AuthBase{
       AppUser user= await _firebaseAuthService.signInWithGoogle();
       bool _sonuc=await _firestoreDBService.saveUser(user);
       if(_sonuc){
-        return user;
+        return await _firestoreDBService.readUser(user.appUserID);
       }else return null;
     }
   }

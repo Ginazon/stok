@@ -16,7 +16,7 @@ class FirebaseAuthService implements AuthBase{
       User user = _firebaseAuth.currentUser;
       return _appUserFromFirebase(user);
     } catch (e) {
-      print("FirebaseAuthService/currentUser()........ HATASI ".toString());
+      print("FirebaseAuthService/currentUser()........ HATASI "+e.toString());
       return null;
     }
   }
@@ -30,7 +30,7 @@ class FirebaseAuthService implements AuthBase{
       await _firebaseAuth.signOut();
       return true;
     } catch (e) {
-      print("FirebaseAuthService/signOut()........ HATASI ".toString());
+      print("FirebaseAuthService/signOut()........ HATASI "+e.toString());
       return false;
     }
 
@@ -45,7 +45,7 @@ class FirebaseAuthService implements AuthBase{
       return _appUserFromFirebase(sonuc.user);
     } catch (e) {
       print(
-          "FirebaseAuthService/signInAnonymously()........ HATASI ".toString());
+          "FirebaseAuthService/signInAnonymously()........ HATASI "+e.toString());
       return null;
     }
   }
@@ -83,7 +83,7 @@ class FirebaseAuthService implements AuthBase{
       return _appUserFromFirebase(sonuc.user);
     } catch (e) {
       print(
-          "FirebaseAuthService/creatUserWithEmailandPassword()........ HATASI ".toString());
+          "FirebaseAuthService/creatUserWithEmailandPassword()........ HATASI "+e.toString());
       return null;
     }
 
@@ -96,7 +96,7 @@ class FirebaseAuthService implements AuthBase{
       return _appUserFromFirebase(sonuc.user);
     } catch (e) {
       print(
-          "FirebaseAuthService/signInWithEmailandPassword()........ HATASI ".toString());
+          "FirebaseAuthService/signInWithEmailandPassword()........ HATASI "+e.toString());
       return null;
     }
 

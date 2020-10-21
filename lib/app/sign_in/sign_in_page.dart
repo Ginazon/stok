@@ -7,12 +7,12 @@ import 'package:stok/model/user.dart';
 import 'package:stok/viewmodel/app_user_view_model.dart';
 
 class SignInPage extends StatelessWidget {
-  Future<void> _misafirGirisi(BuildContext context) async {
+  /*-Future<void> _misafirGirisi(BuildContext context) async {
     final _appUserModel = Provider.of<AppUserViewModel>(context, listen: false);
     AppUser _user = await _appUserModel.signInAnonymously();
 
     print("Oturum Açan User ID=" + _user.appUserID);
-  }
+  }*/
 
   Future<void> _googleIleGiris(BuildContext context) async {
     final _appUserModel = Provider.of<AppUserViewModel>(context, listen: false);
@@ -75,19 +75,7 @@ class SignInPage extends StatelessWidget {
               butonColor: Colors.blueAccent,
               textColor: Colors.white,
             ),
-            SocialLoginButton(
-              onPressed: () => _misafirGirisi(context),
-              butonColor: Colors.teal,
-              butonIcon: Icon(
-                Icons.supervised_user_circle,
-                color: Colors.white,
-                size: 35,
-              ),
-              butonText: "Misafir Girişi",
-              radius: 10,
-              yukseklik: 45,
-              textColor: Colors.white,
-            ),
+
 
 
           ],
