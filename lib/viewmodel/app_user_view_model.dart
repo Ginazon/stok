@@ -100,11 +100,6 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
         return _user;
       } else
         return null;
-    } catch (e) {
-      print(
-          "AppUserViewModel/creatUserWithEmailandPassword Metodu..........................HATASI" +
-              e.toString());
-      return null;
     } finally {
       state = ViewState.Idle;
     }
@@ -120,12 +115,7 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
         return _user;
       } else
         return null;
-    } catch (e) {
-      print(
-          "AppUserViewModel/signInWithEmailandPassword Metodu..........................HATASI" +
-              e.toString());
-      return null;
-    } finally {
+    }finally {
       state = ViewState.Idle;
     }
   }

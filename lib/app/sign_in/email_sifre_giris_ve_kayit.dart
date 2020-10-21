@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:stok/common_widget/social_login_button.dart';
 import 'package:stok/model/user.dart';
@@ -26,15 +27,27 @@ class _EmailVeSifreLoginPageState extends State<EmailVeSifreLoginPage> {
     _formKey.currentState.save();
     print("Email :"+_email +"     sifre :"+_sifre.toString());
     final _userModel=Provider.of<AppUserViewModel>(context,listen: false);
-   if(_formType==FormType.Login){
+   if(_formType==FormType.Login) {
+     try{AppUser _girisYapanUser =
 
-    AppUser _girisYapanUser= await _userModel.signInWithEmailandPassword(_email, _sifre);
-    if(_girisYapanUser!=null)print("Oturum Açan Kullanıcı :"+_girisYapanUser.appUserID.toString());
+     await _userModel.signInWithEmailandPassword(_email, _sifre);
 
-   }else{
-     AppUser _kayitOlanUser= await _userModel.createUserWithEmailandPassword(_email, _sifre);
-     if(_kayitOlanUser!=null)print("Oturum Açan Kullanıcı :"+_kayitOlanUser.appUserID.toString());
+     if (_girisYapanUser != null)
+       print(
+           "Oturum Açan Kullanıcı :" + _girisYapanUser.appUserID.toString());
+     }catch(e){
+       print('Login Hatası..........:' +  e.code.toString());
+     }
 
+    } else {
+     try {
+       AppUser _kayitOlanUser = await _userModel.createUserWithEmailandPassword(
+           _email, _sifre);
+       if (_kayitOlanUser != null) print(
+           "Oturum Açan Kullanıcı :" + _kayitOlanUser.appUserID.toString());
+     }catch (e) {
+       print('Kayıt Hatası..........:' + e.code.toString());
+     }
    }
   }
 
