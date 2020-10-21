@@ -1,5 +1,5 @@
 import 'package:stok/locator.dart';
-import 'package:stok/model/app_user_model.dart';
+import 'package:stok/model/user.dart';
 import 'package:stok/services/auth_base.dart';
 import 'package:stok/services/fake_auth_services.dart';
 import 'package:stok/services/firebase_auth_service.dart';
@@ -63,7 +63,9 @@ class AppUserRepository implements AuthBase{
       AppUser user= await _firebaseAuthService.createUserWithEmailandPassword(email, sifre);
       bool _sonuc=await _firestoreDBService.saveUser(user);
       if(_sonuc){
-        return user;
+
+
+        return await _firestoreDBService.readUser(user.appUserID);
       }else return null;
     }
 
@@ -74,7 +76,8 @@ class AppUserRepository implements AuthBase{
     if (appMode == AppMode.DEBUG) {
       return await _fakeAuthServices.signInWithEmailandPassword(email, sifre);
     } else {
-      return await _firebaseAuthService.signInWithEmailandPassword(email, sifre);
+      AppUser _user= await _firebaseAuthService.signInWithEmailandPassword(email, sifre);
+      return await _firestoreDBService.readUser(_user.appUserID);
     }
 
   }

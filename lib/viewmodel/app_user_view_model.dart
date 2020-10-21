@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:stok/locator.dart';
-import 'package:stok/model/app_user_model.dart';
+import 'package:stok/model/user.dart';
 import 'package:stok/repository/app_user_repository.dart';
 import 'package:stok/services/auth_base.dart';
 enum ViewState {Idle,Busy}

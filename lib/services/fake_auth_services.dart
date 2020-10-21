@@ -1,4 +1,4 @@
-import 'package:stok/model/app_user_model.dart';
+import 'package:stok/model/user.dart';
 import 'package:stok/services/auth_base.dart';
 
 class FakeAuthServices implements AuthBase{

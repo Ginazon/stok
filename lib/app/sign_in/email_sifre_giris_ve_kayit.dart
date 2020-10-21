@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stok/common_widget/social_login_button.dart';
-import 'package:stok/model/app_user_model.dart';
+import 'package:stok/model/user.dart';
 import 'package:stok/viewmodel/app_user_view_model.dart';
 enum FormType{Register,Login}
 

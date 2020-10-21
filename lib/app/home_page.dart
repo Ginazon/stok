@@ -4,7 +4,7 @@ import 'package:stok/app/kullanicilar.dart';
 import 'package:stok/app/my_custom_bottom_navi.dart';
 import 'package:stok/app/profil.dart';
 import 'package:stok/app/tab_items.dart';
-import 'package:stok/model/app_user_model.dart';
+import 'package:stok/model/user.dart';
 
 class HomePage extends StatefulWidget {
   final AppUser user;

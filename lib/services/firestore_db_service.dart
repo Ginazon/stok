@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:stok/model/app_user_model.dart';
+import 'package:stok/model/user.dart';
 import 'package:stok/services/database_base.dart';
 
 class FirestoreDBService implements DBBase {
-  final FirebaseFirestore _firebaseAuth = FirebaseFirestore.instance;
+  final FirebaseFirestore _firebaseDB = FirebaseFirestore.instance;
+
 
   @override
   Future<bool> saveUser(AppUser user) async {
 
 
-    await _firebaseAuth
+    await _firebaseDB
         .collection("users")
         .doc(user.appUserID)
         .set(user.toMap());
@@ -23,4 +24,17 @@ class FirestoreDBService implements DBBase {
 
     return true;
   }
+
+
+  @override
+  Future<AppUser> readUser(String appUserID) async {
+   DocumentSnapshot _okunanUser=await _firebaseDB.collection("users").doc(appUserID).get();
+  Map<String,dynamic> _okunanUserBilgileriMap=_okunanUser.data();
+
+  AppUser _okunanUserNesnesi=AppUser.fromMap(_okunanUserBilgileriMap);
+   print("Okunan user nesnesi :" + _okunanUserNesnesi.toString());
+  return _okunanUserNesnesi;
+  }
+
+
 }

@@ -1,5 +1,6 @@
-import 'package:stok/model/app_user_model.dart';
+import 'package:stok/model/user.dart';
 
 abstract class DBBase{
   Future<bool> saveUser(AppUser user);
+  Future<AppUser> readUser(String appUserID);
 }
