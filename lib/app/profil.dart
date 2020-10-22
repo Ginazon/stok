@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stok/common_widget/platform_duyarli_alert_dialog.dart';
 import 'package:stok/viewmodel/app_user_view_model.dart';
 
 class ProfilPage extends StatelessWidget {
@@ -10,7 +11,7 @@ class ProfilPage extends StatelessWidget {
         title: Text("Profil"),
         actions: [
           FlatButton(
-              onPressed: () => _cikisYap(context),
+              onPressed: () => _cikisIcinOnayIste(context),
               child: Text(
                 "Çıkış Yap",
                 style: TextStyle(
@@ -31,5 +32,15 @@ class ProfilPage extends StatelessWidget {
     final _appUserModel = Provider.of<AppUserViewModel>(context, listen: false);
     bool sonuc = await _appUserModel.signOut();
     return sonuc;
+  }
+
+  Future _cikisIcinOnayIste(BuildContext context) async {
+    final sonuc=await PlatformDuyarliAlertDialog(
+      baslik: "Çıkış Yapılıyor",
+      icerik: "Çıkış işlemi yapılsın mı?",
+      anaButonYazisi: "Evet",
+      iptalButonYazisi: "Hayır",
+    ).goster(context);
+    if(sonuc==true){_cikisYap(context);}
   }
 }

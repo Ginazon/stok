@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:stok/app/hata_exeption.dart';
+import 'package:stok/common_widget/platform_duyarli_alert_dialog.dart';
 import 'package:stok/common_widget/social_login_button.dart';
 import 'package:stok/model/user.dart';
 import 'package:stok/viewmodel/app_user_view_model.dart';
-enum FormType{Register,Login}
+
+enum FormType { Register, Login }
 
 class EmailVeSifreLoginPage extends StatefulWidget {
   @override
@@ -35,10 +38,11 @@ class _EmailVeSifreLoginPageState extends State<EmailVeSifreLoginPage> {
      if (_girisYapanUser != null)
        print(
            "Oturum Açan Kullanıcı :" + _girisYapanUser.appUserID.toString());
-     }catch(e){
-       print('Login Hatası..........:' +  e.code.toString());
-     }
-
+     }catch(e) {
+       return PlatformDuyarliAlertDialog(baslik: "Kayıt Hatası",
+           icerik: Hatalar.goster(e.code),
+           anaButonYazisi: "Tamam").goster(context);
+      }
     } else {
      try {
        AppUser _kayitOlanUser = await _userModel.createUserWithEmailandPassword(
@@ -46,7 +50,9 @@ class _EmailVeSifreLoginPageState extends State<EmailVeSifreLoginPage> {
        if (_kayitOlanUser != null) print(
            "Oturum Açan Kullanıcı :" + _kayitOlanUser.appUserID.toString());
      }catch (e) {
-       print('Kayıt Hatası..........:' + e.code.toString());
+       return PlatformDuyarliAlertDialog(baslik: "Kayıt Hatası",
+           icerik: Hatalar.goster(e.code),
+           anaButonYazisi: "Tamam").goster(context);
      }
    }
   }
