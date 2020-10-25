@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 class SocialLoginButton extends StatelessWidget {
@@ -14,7 +16,7 @@ class SocialLoginButton extends StatelessWidget {
       this.butonText,
       this.butonColor,
       this.textColor,
-      this.radius,
+      this.radius:16,
       this.yukseklik,
       this.butonIcon,
       this.onPressed})
@@ -58,10 +60,12 @@ class SocialLoginButton extends StatelessWidget {
               ]
             ],
           ),
-          color: butonColor,
+          color:butonColor,
         ),
       ),
     );
   }
+
+
 }
 

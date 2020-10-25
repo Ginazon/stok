@@ -20,7 +20,8 @@ class AppUserRepository implements AuthBase{
     if (appMode == AppMode.DEBUG) {
       return await _fakeAuthServices.currentUser();
     } else {
-      return await _firebaseAuthService.currentUser();
+      AppUser user= await _firebaseAuthService.currentUser();
+      return await _firestoreDBService.readUser(user.appUserID);
     }
   }
 
@@ -80,6 +81,15 @@ class AppUserRepository implements AuthBase{
       return await _firestoreDBService.readUser(_user.appUserID);
     }
 
+  }
+
+  Future<bool> updateUserName(String appUserID, String yeniAppUserName) async{
+    if (appMode == AppMode.DEBUG) {
+      return false;
+    } else {
+
+      return await _firestoreDBService.updateUserName(appUserID, yeniAppUserName);
+    }
   }
 
 

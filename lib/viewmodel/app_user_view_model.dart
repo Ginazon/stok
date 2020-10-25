@@ -135,4 +135,18 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
     return sonuc;
   }
 
+  Future<bool> updateUserName(String appUserID , String yeniAppUserName) async {
+
+
+    var sonuc=await _appUserRepository.updateUserName(appUserID,yeniAppUserName);
+    if(sonuc){
+      _user.userName=yeniAppUserName;
+    }
+
+
+    return sonuc;
+
+
+  }
+
 }

@@ -28,12 +28,27 @@ class FirestoreDBService implements DBBase {
 
   @override
   Future<AppUser> readUser(String appUserID) async {
-   DocumentSnapshot _okunanUser=await _firebaseDB.collection("users").doc(appUserID).get();
-  Map<String,dynamic> _okunanUserBilgileriMap=_okunanUser.data();
+    DocumentSnapshot _okunanUser = await _firebaseDB.collection("users").doc(
+        appUserID).get();
+    Map<String, dynamic> _okunanUserBilgileriMap = _okunanUser.data();
 
-  AppUser _okunanUserNesnesi=AppUser.fromMap(_okunanUserBilgileriMap);
-   print("Okunan user nesnesi :" + _okunanUserNesnesi.toString());
-  return _okunanUserNesnesi;
+    AppUser _okunanUserNesnesi = AppUser.fromMap(_okunanUserBilgileriMap);
+    print("Okunan user nesnesi :" + _okunanUserNesnesi.toString());
+    return _okunanUserNesnesi;
+  }
+
+  @override
+  Future<bool> updateUserName(String appUserID, String yeniAppUserName) async {
+    var users = await _firebaseDB.collection("users").where(
+        "userName", isEqualTo: yeniAppUserName).get();
+    if(users.docs.length>=1){
+      return false;
+    }else{
+      await _firebaseDB.collection("users").doc(appUserID).update({'userName':yeniAppUserName});
+      return true;
+
+    }
+
   }
 
 
