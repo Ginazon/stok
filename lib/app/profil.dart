@@ -129,6 +129,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   butonText: "Kaydet",
                   onPressed: () {
                     _userNameGuncelle(context);
+                    _profilFotoGuncelle(context);
                   },
                   butonColor: Theme.of(context).primaryColor,
                   textColor: Colors.white,
@@ -180,12 +181,25 @@ class _ProfilPageState extends State<ProfilPage> {
         ).goster(context);
         _controller.text=_appUserModel.user.userName;
       }
-    } else {
-      PlatformDuyarliAlertDialog(
-        baslik: "Hata",
-        icerik: "Yeni Kullanıcı Adı Eskisiyle Aynı",
-        anaButonYazisi: "Tamam",
-      ).goster(context);
+    }
+  }
+
+  Future<void> _profilFotoGuncelle(BuildContext context) async {
+    final _appUserModel = Provider.of<AppUserViewModel>(context, listen: false);
+    if(_profilFoto!=null){
+
+
+      var url = await _appUserModel.uploadFile(_appUserModel.user.appUserID,"profil_foto",_profilFoto);
+      print ("gelen Url........:"+url);
+      if(url!=null){
+        PlatformDuyarliAlertDialog(
+          baslik: "Başarılı",
+          icerik: "Profil Foto Değiştirildi",
+          anaButonYazisi: "Tamam",
+        ).goster(context);
+
+      }
+
     }
   }
 

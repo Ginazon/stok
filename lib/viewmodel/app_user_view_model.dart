@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:stok/locator.dart';
 import 'package:stok/model/user.dart';
@@ -145,6 +147,13 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
 
 
     return sonuc;
+
+
+  }
+
+  Future<String>uploadFile(String appUserID, String fileType, File profilFoto) async {
+    var indirmeLinki=await _appUserRepository.uploadFile(appUserID,fileType,profilFoto);
+    return indirmeLinki;
 
 
   }

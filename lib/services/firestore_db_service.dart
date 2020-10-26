@@ -51,5 +51,10 @@ class FirestoreDBService implements DBBase {
 
   }
 
+  updateProfilFoto(String appUserID, String profilFotoUrl) async {
+    await _firebaseDB.collection("users").doc(appUserID).update({'profilURL':profilFotoUrl});
+    return true;
+  }
+
 
 }
