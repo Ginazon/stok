@@ -56,5 +56,21 @@ class FirestoreDBService implements DBBase {
     return true;
   }
 
+  @override
+  Future<List<AppUser>> getAllUsers() async {
+    QuerySnapshot querySnapshot= await _firebaseDB.collection("users").get();
+    List<AppUser> tumKullanicilar=[];
+    for(DocumentSnapshot tekUser in querySnapshot.docs){
+     AppUser _tekUser=AppUser.fromMap(tekUser.data());
+     tumKullanicilar.add(_tekUser);
+    }
+
+    //MAP METOTU ILE
+    //tumKullanicilar = querySnapshot.docs.map((tekSatir)=>AppUser.fromMap(tekSatir.data())).toList();
+
+    return tumKullanicilar;
+
+  }
+
 
 }

@@ -108,5 +108,16 @@ class AppUserRepository implements AuthBase{
 
   }
 
+ Future<List<AppUser>> getAllUsers() async{
+
+   if (appMode == AppMode.DEBUG) {
+     return [];
+   } else {
+     var tumKullaniciListesi=await _firestoreDBService.getAllUsers();
+
+     return tumKullaniciListesi;
+   }
+ }
+
 
 }

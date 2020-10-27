@@ -58,6 +58,13 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
       state=ViewState.Idle;
     }
   }
+  Future<List<AppUser>>getAllUsers() async {
+    var tumKullaniciListesi=await _appUserRepository.getAllUsers();
+    return tumKullaniciListesi;
+  }
+
+
+
 
   @override
   Future<AppUser> signInAnonymously() async{
