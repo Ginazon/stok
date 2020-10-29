@@ -37,6 +37,8 @@ class AppUser{
         upDatedAt=(map['upDatedAt']as Timestamp).toDate(),
         seviye=map['seviye'];
 
+  AppUser.idveResim({@required this.appUserID, @required this.profilURL});
+
   @override
   String toString() {
     return 'AppUser{appUserID: $appUserID, email: $email, userName: $userName, profilURL: $profilURL, createdAt: $createdAt, upDatedAt: $upDatedAt, seviye: $seviye}';

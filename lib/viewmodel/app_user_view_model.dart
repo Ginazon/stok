@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:stok/locator.dart';
+import 'package:stok/model/konusma.dart';
+import 'package:stok/model/mesaj.dart';
 import 'package:stok/model/user.dart';
 import 'package:stok/repository/app_user_repository.dart';
 import 'package:stok/services/auth_base.dart';
@@ -164,5 +166,20 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
 
 
   }
+
+  Stream <List<Mesaj>>getMessages(String currentUserID, String sohbetEdilenUserID) {
+
+    return _appUserRepository.getMessages(currentUserID,sohbetEdilenUserID);
+
+  }
+
+  Future<bool> saveMessage(Mesaj kaydedilecekMesaj) async{
+    return await _appUserRepository.saveMessage(kaydedilecekMesaj);
+  }
+
+ Future<List<Konusma>> getAllConversations(String appUserID)async {
+
+    return await _appUserRepository.getAllConversations(appUserID);
+ }
 
 }

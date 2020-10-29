@@ -1,3 +1,5 @@
+import 'package:stok/model/konusma.dart';
+import 'package:stok/model/mesaj.dart';
 import 'package:stok/model/user.dart';
 
 abstract class DBBase{
@@ -6,4 +8,8 @@ abstract class DBBase{
   Future<bool> updateUserName(String appUserID,String yeniAppUserName);
   Future<bool>updateProfilFoto(String appUserID, String profilFotoUrl);
   Future<List<AppUser>>getAllUsers();
+  Future<List<Konusma>>getAllConversations(String appUserID);
+  Stream <List<Mesaj>>getMessages(String currentUserID,String sohbetEdilenUserID);
+  Future<bool> saveMessage(Mesaj kaydedilecekMesaj);
+  Future <DateTime>saatiGoster(String appUserID);
 }

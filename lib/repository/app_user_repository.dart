@@ -1,12 +1,14 @@
 import 'dart:io';
-
 import 'package:stok/locator.dart';
+import 'package:stok/model/konusma.dart';
+import 'package:stok/model/mesaj.dart';
 import 'package:stok/model/user.dart';
 import 'package:stok/services/auth_base.dart';
 import 'package:stok/services/fake_auth_services.dart';
 import 'package:stok/services/firebase_auth_service.dart';
 import 'package:stok/services/firebase_storage_service.dart';
 import 'package:stok/services/firestore_db_service.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 enum AppMode {DEBUG,RELEASE}
 
@@ -18,6 +20,7 @@ class AppUserRepository implements AuthBase{
   FirebaseStorageService _firebaseStorageService = locator<FirebaseStorageService>();
 
   AppMode appMode = AppMode.RELEASE;
+  List<AppUser> tumKullaniciListesi=[];
 
   @override
   Future<AppUser> currentUser() async {
@@ -113,11 +116,74 @@ class AppUserRepository implements AuthBase{
    if (appMode == AppMode.DEBUG) {
      return [];
    } else {
-     var tumKullaniciListesi=await _firestoreDBService.getAllUsers();
+     tumKullaniciListesi=await _firestoreDBService.getAllUsers();
 
      return tumKullaniciListesi;
    }
  }
 
+  Stream<List<Mesaj>> getMessages(String currentUserID, String sohbetEdilenUserID) {
+
+    if (appMode == AppMode.DEBUG) {
+      return Stream.empty();
+    } else {
+      return _firestoreDBService.getMessages(currentUserID, sohbetEdilenUserID);
+    }
+
+  }
+
+  Future<bool> saveMessage(Mesaj kaydedilecekMesaj)async {
+    if (appMode == AppMode.DEBUG) {
+      return true;
+    } else {
+      return _firestoreDBService.saveMessage(kaydedilecekMesaj);
+    }
+
+  }
+
+  Future<List<Konusma>> getAllConversations(String appUserID)async {
+
+    if (appMode == AppMode.DEBUG) {
+      return [];
+    } else {
+      DateTime _zaman = await _firestoreDBService.saatiGoster(appUserID);
+      var konusmaListesi= await _firestoreDBService.getAllConversations(appUserID);
+      for (var oankiKonusma in konusmaListesi) {
+        var userListesindekiKullanici =
+        listedeUserBul(oankiKonusma.kimleKonusuyor);
+
+        if (userListesindekiKullanici != null) {
+          print("VERILER LOCAL CACHEDEN OKUNDU");
+          oankiKonusma.konusulanUserName = userListesindekiKullanici.userName;
+          oankiKonusma.konusulanUserProfilURL =
+              userListesindekiKullanici.profilURL;
+          oankiKonusma.sonOkunmaZamani=_zaman;
+
+        } else {
+          print("VERILER VERITABANINDAN OKUNDU");
+          print(
+              "aranılan user daha önceden veritabanından getirilmemiş, o yüzden veritabanından bu degeri okumalıyız");
+          var _veritabanindanOkunanUser =
+          await _firestoreDBService.readUser(oankiKonusma.kimleKonusuyor);
+          oankiKonusma.konusulanUserName = _veritabanindanOkunanUser.userName;
+          oankiKonusma.konusulanUserProfilURL =
+              _veritabanindanOkunanUser.profilURL;
+          oankiKonusma.sonOkunmaZamani=_zaman;
+        }
+      }
+
+      return konusmaListesi;
+    }
+  }
+AppUser listedeUserBul(String appUserID){
+
+  for (int i = 0; i < tumKullaniciListesi.length; i++) {
+    if (tumKullaniciListesi[i].appUserID == appUserID) {
+      return tumKullaniciListesi[i];
+    }
+  }
+
+  return null;
+}
 
 }
