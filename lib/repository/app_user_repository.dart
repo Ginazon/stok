@@ -157,7 +157,7 @@ class AppUserRepository implements AuthBase{
           oankiKonusma.konusulanUserName = userListesindekiKullanici.userName;
           oankiKonusma.konusulanUserProfilURL =
               userListesindekiKullanici.profilURL;
-          oankiKonusma.sonOkunmaZamani=_zaman;
+
 
         } else {
           print("VERILER VERITABANINDAN OKUNDU");
@@ -168,8 +168,9 @@ class AppUserRepository implements AuthBase{
           oankiKonusma.konusulanUserName = _veritabanindanOkunanUser.userName;
           oankiKonusma.konusulanUserProfilURL =
               _veritabanindanOkunanUser.profilURL;
-          oankiKonusma.sonOkunmaZamani=_zaman;
+
         }
+      timeagoHesapla(oankiKonusma,_zaman);
       }
 
       return konusmaListesi;
@@ -185,5 +186,12 @@ AppUser listedeUserBul(String appUserID){
 
   return null;
 }
+
+  void timeagoHesapla(Konusma oankiKonusma,DateTime zaman) {
+    oankiKonusma.sonOkunmaZamani=zaman;
+    timeago.setLocaleMessages("tr", timeago.TrMessages());
+    var _duration=zaman.difference(oankiKonusma.olusturulmaTarihi.toDate());
+    oankiKonusma.aradakiFark=timeago.format(zaman.subtract(_duration),locale: "tr");
+  }
 
 }

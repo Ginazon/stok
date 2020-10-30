@@ -57,7 +57,7 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                                 );
                               },
                               child: ListTile(
-                                trailing: Text(oAnKiKonusma.sonOkunmaZamani.toString()
+                                trailing: Text(oAnKiKonusma.aradakiFark
                                   //_saatDakikaGoster(oAnKiKonusma.olusturulmaTarihi),
                                      ),
                                 title: Text(oAnKiKonusma.konusulanUserName),
