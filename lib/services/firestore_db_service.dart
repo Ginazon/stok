@@ -58,21 +58,6 @@ class FirestoreDBService implements DBBase {
   }
 
   @override
-  Future<List<AppUser>> getAllUsers() async {
-    QuerySnapshot querySnapshot = await _firebaseDB.collection("users").get();
-    List<AppUser> tumKullanicilar = [];
-    for (DocumentSnapshot tekUser in querySnapshot.docs) {
-      AppUser _tekUser = AppUser.fromMap(tekUser.data());
-      tumKullanicilar.add(_tekUser);
-    }
-
-    //MAP METOTU ILE
-    //tumKullanicilar = querySnapshot.docs.map((tekSatir)=>AppUser.fromMap(tekSatir.data())).toList();
-
-    return tumKullanicilar;
-  }
-
-  @override
   Future<List<Konusma>> getAllConversations(String appUserID) async {
     QuerySnapshot querySnapshot = await _firebaseDB
         .collection("konusmalar")
@@ -150,10 +135,39 @@ class FirestoreDBService implements DBBase {
 
   @override
   Future<DateTime> saatiGoster(String appUserID) async {
-    await _firebaseDB.collection("server").doc(appUserID).set({"saat":FieldValue.serverTimestamp()});
+    await _firebaseDB.collection("server").doc(appUserID).set(
+        {"saat": FieldValue.serverTimestamp()});
     var okunanMap = await _firebaseDB.collection("server").doc(appUserID).get();
-    Timestamp okunanTarih=okunanMap.data()["saat"];
+    Timestamp okunanTarih = okunanMap.data()["saat"];
     return okunanTarih.toDate();
+  }
+
+  @override
+  Future<List<AppUser>> getUsersWithPagination(AppUser enSonGetirilenUser,
+      int getirilecekElemanSayisi) async {
+    QuerySnapshot _querySnapshot;
+    List<AppUser>_tumKullanicilar = [];
+    if (enSonGetirilenUser == null) {
+      _querySnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .orderBy("userName")
+          .limit(getirilecekElemanSayisi)
+          .get();
+    } else {
+      _querySnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .orderBy("userName")
+          .startAfter([enSonGetirilenUser.userName])
+          .limit(getirilecekElemanSayisi)
+          .get();
+    }
+    for (DocumentSnapshot snapshot in _querySnapshot.docs) {
+      AppUser _tekUser = AppUser.fromMap(snapshot.data());
+      _tumKullanicilar.add(_tekUser);
+
+  }
+    return _tumKullanicilar;
+
 
   }
 

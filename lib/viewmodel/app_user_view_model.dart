@@ -60,13 +60,6 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
       state=ViewState.Idle;
     }
   }
-  Future<List<AppUser>>getAllUsers() async {
-    var tumKullaniciListesi=await _appUserRepository.getAllUsers();
-    return tumKullaniciListesi;
-  }
-
-
-
 
   @override
   Future<AppUser> signInAnonymously() async{
@@ -173,13 +166,18 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
 
   }
 
-  Future<bool> saveMessage(Mesaj kaydedilecekMesaj) async{
+  Future<bool> saveMessage(Mesaj kaydedilecekMesaj) async {
     return await _appUserRepository.saveMessage(kaydedilecekMesaj);
   }
 
- Future<List<Konusma>> getAllConversations(String appUserID)async {
-
+  Future<List<Konusma>> getAllConversations(String appUserID) async {
     return await _appUserRepository.getAllConversations(appUserID);
- }
+  }
+
+  Future<List<AppUser>> getUsersWithPagination(AppUser enSonGetirilenUser,
+      int getirilecekElemanSayisi) async {
+    return await _appUserRepository.getUsersWithPagination(
+        enSonGetirilenUser, getirilecekElemanSayisi);
+  }
 
 }

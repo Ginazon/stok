@@ -111,16 +111,7 @@ class AppUserRepository implements AuthBase{
 
   }
 
- Future<List<AppUser>> getAllUsers() async{
 
-   if (appMode == AppMode.DEBUG) {
-     return [];
-   } else {
-     tumKullaniciListesi=await _firestoreDBService.getAllUsers();
-
-     return tumKullaniciListesi;
-   }
- }
 
   Stream<List<Mesaj>> getMessages(String currentUserID, String sohbetEdilenUserID) {
 
@@ -184,14 +175,24 @@ AppUser listedeUserBul(String appUserID){
     }
   }
 
-  return null;
-}
-
-  void timeagoHesapla(Konusma oankiKonusma,DateTime zaman) {
-    oankiKonusma.sonOkunmaZamani=zaman;
-    timeago.setLocaleMessages("tr", timeago.TrMessages());
-    var _duration=zaman.difference(oankiKonusma.olusturulmaTarihi.toDate());
-    oankiKonusma.aradakiFark=timeago.format(zaman.subtract(_duration),locale: "tr");
+    return null;
   }
 
+  void timeagoHesapla(Konusma oankiKonusma, DateTime zaman) {
+    oankiKonusma.sonOkunmaZamani = zaman;
+    timeago.setLocaleMessages("tr", timeago.TrMessages());
+    var _duration = zaman.difference(oankiKonusma.olusturulmaTarihi.toDate());
+    oankiKonusma.aradakiFark =
+        timeago.format(zaman.subtract(_duration), locale: "tr");
+  }
+
+  Future<List<AppUser>> getUsersWithPagination(
+      AppUser enSonGetirilenUser, int getirilecekElemanSayisi) async {
+    if (appMode == AppMode.DEBUG) {
+      return [];
+    } else {
+      return _firestoreDBService.getUsersWithPagination(
+          enSonGetirilenUser, getirilecekElemanSayisi);
+    }
+  }
 }

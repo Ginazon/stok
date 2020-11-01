@@ -7,7 +7,7 @@ abstract class DBBase{
   Future<AppUser> readUser(String appUserID);
   Future<bool> updateUserName(String appUserID,String yeniAppUserName);
   Future<bool>updateProfilFoto(String appUserID, String profilFotoUrl);
-  Future<List<AppUser>>getAllUsers();
+  Future<List<AppUser>>getUsersWithPagination(AppUser enSonGetirilenUser, int getirilecekElemanSayisi);
   Future<List<Konusma>>getAllConversations(String appUserID);
   Stream <List<Mesaj>>getMessages(String currentUserID,String sohbetEdilenUserID);
   Future<bool> saveMessage(Mesaj kaydedilecekMesaj);

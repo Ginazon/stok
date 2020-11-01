@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:stok/app/konusma_page.dart';
 import 'package:stok/model/konusma.dart';
@@ -115,11 +113,7 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
     );
   }
 
-  String _saatDakikaGoster(Timestamp date) {
-    var _formater = DateFormat.Hm();
-    var _formatlanmisTarih = _formater.format(date.toDate());
-    return _formatlanmisTarih;
-  }
+
 
   Future<Null> _konusmalarimListesiniYenile() async {
     setState(() {});
