@@ -191,8 +191,11 @@ AppUser listedeUserBul(String appUserID){
     if (appMode == AppMode.DEBUG) {
       return [];
     } else {
-      return _firestoreDBService.getUsersWithPagination(
+      
+      List<AppUser> _appUserList= await _firestoreDBService.getUsersWithPagination(
           enSonGetirilenUser, getirilecekElemanSayisi);
+      tumKullaniciListesi.addAll(_appUserList);
+      return _appUserList;
     }
   }
 }

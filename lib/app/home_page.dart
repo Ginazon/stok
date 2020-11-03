@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stok/app/konusmalarim_page.dart';
-
 import 'package:stok/app/kullanicilar.dart';
 import 'package:stok/app/my_custom_bottom_navi.dart';
 import 'package:stok/app/profil.dart';
 import 'package:stok/app/tab_items.dart';
 import 'package:stok/model/user.dart';
+import 'package:stok/viewmodel/all_app_users_view_model.dart';
 
 class HomePage extends StatefulWidget {
   final AppUser user;
@@ -26,7 +27,12 @@ class _HomePageState extends State<HomePage> {
 
   Map<TabItem, Widget> tumSayfalar() {
     return {
-      TabItem.Kullanicilar: KullanicilarPage(),
+      TabItem.Kullanicilar:ChangeNotifierProvider(
+        create: (context)=>AllAppUsersViewModel(),
+        child: KullanicilarPage(),
+      ),
+
+
       TabItem.Konusmalarim: KonusmalarimPage(),
       TabItem.Profil: ProfilPage(),
     };

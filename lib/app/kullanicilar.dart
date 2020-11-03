@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:stok/app/konusma_page.dart';
 import 'package:stok/model/user.dart';
+import 'package:stok/viewmodel/all_app_users_view_model.dart';
 import 'package:stok/viewmodel/app_user_view_model.dart';
 
 class KullanicilarPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class KullanicilarPage extends StatefulWidget {
 }
 
 class _KullanicilarPageState extends State<KullanicilarPage> {
-  List<AppUser> _tumKullanicilar;
+
   bool _isLoading = false;
   bool _hasMore = true;
   int _getirilecekElemanSayisi = 10;
@@ -22,31 +22,44 @@ class _KullanicilarPageState extends State<KullanicilarPage> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      getUser();
-    });
+
     _scrollController.addListener(() {
-      if (_scrollController.position.atEdge) {
-        if (_scrollController.position == 0) {
-        } else {
-          getUser();
-        }
+      if (_scrollController.offset >=
+          _scrollController.position.minScrollExtent &&
+          !_scrollController.position.outOfRange){
+        dahaFazlaKullaniciGetir();
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final _allAppUsersViewModel = Provider.of<AllAppUsersViewModel>(context,listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text("Kullanıcılar"),
 
       ),
-      body: _tumKullanicilar == null ? Center(
-        child: CircularProgressIndicator(),) : _kullaniciListesiOlustur(),
+      body: Consumer<AllAppUsersViewModel>(builder:(context,model,child){
+        if(model.state==AllAppUsersViewState.Busy){
+          return Center(child: CircularProgressIndicator(),);
+        }else if(model.state==AllAppUsersViewState.Loaded){
+          return  ListView.builder(
+            controller: _scrollController,
+            itemBuilder: (context, index) {
+
+
+              return _appUserListeElemaniOlustur(index);
+            },
+            itemCount:model.kullanicilarListesi.length,
+          );
+        }else{return Container();
+
+        }
+      } ,)
     );
   }
-
+/*
   getUser() async {
     final _appUserModel = Provider.of<AppUserViewModel>(context, listen: false);
 
@@ -80,6 +93,8 @@ class _KullanicilarPageState extends State<KullanicilarPage> {
     _isLoading = false;
   }
 
+ */
+/*
   _kullaniciListesiOlustur() {
     if(_tumKullanicilar.length>1){
       return RefreshIndicator(
@@ -133,11 +148,12 @@ class _KullanicilarPageState extends State<KullanicilarPage> {
     }
 
   }
-
+*/
   Widget _appUserListeElemaniOlustur(int index) {
     final _appUserModel = Provider.of<AppUserViewModel>(context, listen: false);
+    final _allAppUsersViewModel = Provider.of<AllAppUsersViewModel>(context, listen: false);
 
-    var _oankiUser = _tumKullanicilar[index];
+    var _oankiUser = _allAppUsersViewModel.kullanicilarListesi[index];
     if(_oankiUser.appUserID==_appUserModel.user.appUserID){
       return Container();
     }
@@ -178,11 +194,22 @@ class _KullanicilarPageState extends State<KullanicilarPage> {
         opacity: _isLoading ? 1 : 0,
         child: _isLoading ? CircularProgressIndicator() : null,),),);
   }
-
+/*
   Future<Null> _kullanicilarListesiniYenile() async {
     _hasMore = true;
     _enSonGetirilenUser = null;
-    getUser();
+    //getUser();
+  }*/
+
+  Future<void> dahaFazlaKullaniciGetir() async {
+    if(_isLoading==false){
+      _isLoading=true;
+      final _allAppUsersViewModel = Provider.of<AllAppUsersViewModel>(context, listen: false);
+    await _allAppUsersViewModel.dahaFazlaKullaniciGetir();
+    _isLoading=false;
+    }
+
+
   }
   }
 
