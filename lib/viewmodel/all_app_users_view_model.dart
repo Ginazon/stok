@@ -60,4 +60,11 @@ class AllAppUsersViewModel with ChangeNotifier {
       print("Daha fazla eleman yok o yüzden çagrılmayacak");
     await Future.delayed(Duration(seconds: 2));
   }
+
+  Future<Null> refresh()async {
+    _hasMore = true;
+    _enSonGetirilenUser = null;
+    _tumKullanicilar=[];
+    getUserWithPagination(_enSonGetirilenUser, true);
+  }
 }
