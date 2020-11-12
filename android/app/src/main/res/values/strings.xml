@@ -3,5 +3,6 @@
     <string name="facebook_app_id">989779841500083</string>
     <string name="fb_login_protocol_scheme">fb989779841500083</string>
     <string name="app_name">Fabrika</string>
+    <string name="default_notification_channel_id">varsayilan</string>
 
 </resources>
