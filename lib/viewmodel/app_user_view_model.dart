@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:stok/locator.dart';
 import 'package:stok/model/konusma.dart';
+import 'package:stok/model/malzeme_model.dart';
+
 import 'package:stok/model/mesaj.dart';
 import 'package:stok/model/user.dart';
 import 'package:stok/repository/app_user_repository.dart';
@@ -179,5 +181,12 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
     return await _appUserRepository.getUsersWithPagination(
         enSonGetirilenUser, getirilecekElemanSayisi);
   }
+
+  Future<void> saveMalzeme(Malzeme kaydedilecekMalzeme) async {
+    return await _appUserRepository.saveMalzeme(kaydedilecekMalzeme);
+  }
+
+
+ 
 
 }

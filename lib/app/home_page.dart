@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stok/app/konusmalarim_page.dart';
 import 'package:stok/app/kullanicilar.dart';
+import 'package:stok/app/lazer_list.dart';
 import 'package:stok/app/my_custom_bottom_navi.dart';
 import 'package:stok/app/profil.dart';
 import 'package:stok/app/tab_items.dart';
 import 'package:stok/model/user.dart';
+import 'file:///D:/stok/stok/lib/app/plasma_list.dart';
 import 'package:stok/viewmodel/all_app_users_view_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +24,8 @@ class _HomePageState extends State<HomePage> {
   Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
     TabItem.Kullanicilar: GlobalKey<NavigatorState>(),
     TabItem.Konusmalarim: GlobalKey<NavigatorState>(),
+    TabItem.Lazer: GlobalKey<NavigatorState>(),
+    TabItem.Plasma: GlobalKey<NavigatorState>(),
     TabItem.Profil: GlobalKey<NavigatorState>(),
   };
 
@@ -34,6 +38,9 @@ class _HomePageState extends State<HomePage> {
 
 
       TabItem.Konusmalarim: KonusmalarimPage(),
+      TabItem.Lazer: LazerList(),
+      TabItem.Plasma: PlasmaList(),
+
       TabItem.Profil: ProfilPage(),
     };
   }

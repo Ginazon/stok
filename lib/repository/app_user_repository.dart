@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:stok/locator.dart';
 import 'package:stok/model/konusma.dart';
+import 'package:stok/model/malzeme_model.dart';
+
 import 'package:stok/model/mesaj.dart';
 import 'package:stok/model/user.dart';
 import 'package:stok/services/auth_base.dart';
@@ -198,4 +200,15 @@ AppUser listedeUserBul(String appUserID){
       return _appUserList;
     }
   }
+
+  saveMalzeme(Malzeme kaydedilecekMalzeme) {
+
+    if (appMode == AppMode.DEBUG) {
+      return true;
+    } else {
+      return _firestoreDBService.saveMalzeme(kaydedilecekMalzeme);
+    }
+  }
+
+
 }

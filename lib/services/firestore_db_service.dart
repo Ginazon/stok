@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stok/model/konusma.dart';
+import 'package:stok/model/malzeme_model.dart';
 import 'package:stok/model/mesaj.dart';
 import 'package:stok/model/user.dart';
 import 'package:stok/services/database_base.dart';
@@ -132,6 +133,14 @@ class FirestoreDBService implements DBBase {
 
     return true;
   }
+  @override
+  Future<bool> saveMalzeme(Malzeme malzeme) async {
+
+    await _firebaseDB
+        .collection("malzemeler")
+        .doc()
+        .set(malzeme.toMap());
+  }
 
   @override
   Future<DateTime> saatiGoster(String appUserID) async {
@@ -170,6 +179,13 @@ class FirestoreDBService implements DBBase {
 
 
   }
+
+
+
+  
+
+
+
 
 }
 
