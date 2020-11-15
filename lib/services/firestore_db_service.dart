@@ -5,7 +5,9 @@ import 'package:stok/model/mesaj.dart';
 import 'package:stok/model/user.dart';
 import 'package:stok/services/database_base.dart';
 
-class FirestoreDBService implements DBBase {
+class FirestoreDBService
+
+    implements DBBase {
   final FirebaseFirestore _firebaseDB = FirebaseFirestore.instance;
 
 
@@ -214,15 +216,24 @@ class FirestoreDBService implements DBBase {
   }
 
   @override
-  Future<bool> updateMalzeme(malzeme, String yeniEn, String yeniBoy, String yeniAdet) {
+  Future<bool> updateMalzeme(Malzeme _updateMalzeme) async {
+    await _firebaseDB.collection("malzemeler").doc(_updateMalzeme.malzemeid).update({
+      'type': _updateMalzeme.type,
+      'kalinlik': _updateMalzeme.kalinlik,
+      'en': _updateMalzeme.en,
+      'boy':_updateMalzeme.boy,
+      'adet': _updateMalzeme.adet,
+      'yeri': _updateMalzeme.yeri,});
+    return true;
+  }
 
+  @override
+  Future<bool> deleteMalzeme(Malzeme _updateMalzeme) async {
+    await _firebaseDB.collection("malzemeler").doc(_updateMalzeme.malzemeid).delete();
+    return true;
   }
 
 
-
-
-
-  
 
 
 

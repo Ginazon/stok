@@ -218,5 +218,21 @@ AppUser listedeUserBul(String appUserID){
     }
   }
 
+  Future<bool>updateMalzeme(kaydedilecekMalzeme) {
+    if (appMode == AppMode.DEBUG) {
+      return null;
+    } else {
+      return _firestoreDBService.updateMalzeme(kaydedilecekMalzeme);
+    }
+  }
+
+  Future<bool>deleteMalzeme(Malzeme updateMalzeme) {
+    if (appMode == AppMode.DEBUG) {
+      return null;
+    } else {
+      return _firestoreDBService.deleteMalzeme(updateMalzeme);
+    }
+  }
+
 
 }

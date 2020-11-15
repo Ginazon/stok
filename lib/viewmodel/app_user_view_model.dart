@@ -191,6 +191,17 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
     return await _appUserRepository.saveMalzeme(kaydedilecekMalzeme);
   }
 
+  Future <bool>updateMalzeme(Malzeme updateMalzeme) async {
+    return await _appUserRepository.updateMalzeme(updateMalzeme);
+  }
+
+  Future<bool>deleteMalzeme(Malzeme updateMalzeme) async {
+    state = ViewState.Busy;
+    var sonuc = await _appUserRepository.deleteMalzeme(updateMalzeme);
+    state = ViewState.Idle;
+    return sonuc;
+  }
+
 
  
 

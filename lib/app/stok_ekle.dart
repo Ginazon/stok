@@ -148,6 +148,7 @@ class _StokEkleState extends State<StokEkle> {
                             yeri: _yeri);
                         print(_kaydedilecekMalzeme.type);
                         await _appUserModel.saveMalzeme(_kaydedilecekMalzeme);
+                        Navigator.pop(context);
                       },
                       butonIcon: Icon(
                         Icons.save,
@@ -159,6 +160,7 @@ class _StokEkleState extends State<StokEkle> {
                       butonText: "Kaydet",
                       butonColor: Theme.of(context).primaryColor,
                       textColor: Colors.white,
+
                     ),
                   ],
                 ),

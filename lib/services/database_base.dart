@@ -7,7 +7,8 @@ abstract class DBBase{
   Future<bool> saveUser(AppUser user);
   Future<AppUser> readUser(String appUserID);
   Future<bool> updateUserName(String appUserID,String yeniAppUserName);
-  Future<bool> updateMalzeme(malzeme,String yeniEn,String yeniBoy,String yeniAdet);
+  Future<bool> updateMalzeme(Malzeme _updateMalzeme);
+  Future<bool> deleteMalzeme(Malzeme _updateMalzeme);
   Future<bool>updateProfilFoto(String appUserID, String profilFotoUrl);
   Future<List<AppUser>>getUsersWithPagination(AppUser enSonGetirilenUser, int getirilecekElemanSayisi);
   Future<List<Konusma>>getAllConversations(String appUserID);
