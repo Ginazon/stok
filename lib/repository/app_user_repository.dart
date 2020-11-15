@@ -210,5 +210,13 @@ AppUser listedeUserBul(String appUserID){
     }
   }
 
+  Future<List<Malzeme>>getAllMalzeme(String yeri) {
+    if (appMode == AppMode.DEBUG) {
+      return null;
+    } else {
+      return _firestoreDBService.getAllMalzeme(yeri);
+    }
+  }
+
 
 }

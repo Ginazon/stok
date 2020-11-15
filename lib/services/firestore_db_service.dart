@@ -73,6 +73,24 @@ class FirestoreDBService implements DBBase {
     }
     return tumKonusmalar;
   }
+  @override
+  Future<List<Malzeme>> getAllMalzeme(String yeri ) async {
+
+    QuerySnapshot querySnapshot = await _firebaseDB
+        .collection("malzemeler")
+        .orderBy("type")
+        .get();
+    print("db serviceteki query snapshot"+querySnapshot.toString());
+    List<Malzeme> tumMalzemeler=[];
+    for(DocumentSnapshot tekMalzeme in querySnapshot.docs){
+      Malzeme _tekMalzeme=Malzeme.fromMap(tekMalzeme.data());
+      if(_tekMalzeme.yeri==yeri){tumMalzemeler.add(_tekMalzeme);}
+
+    }
+    return tumMalzemeler;
+
+  }
+  
 
 
   @override
@@ -86,6 +104,28 @@ class FirestoreDBService implements DBBase {
         .snapshots();
     return snapShot.map((mesajListesi) =>
         mesajListesi.docs.map((mesaj) => Mesaj.fromMap(mesaj.data())).toList());
+  }
+  @override
+  Future<bool> saveMalzeme(Malzeme malzeme) async {
+    var _malzemeID = _firebaseDB
+        .collection("malzemeler")
+        .doc()
+        .id;
+    var _kaydedilecekMalzeme=malzeme.toMap();
+
+
+    await _firebaseDB
+        .collection("malzemeler")
+        .doc(_malzemeID)
+        .set(_kaydedilecekMalzeme);
+    await _firebaseDB.collection("malzemeler").doc(_malzemeID).update({"malzemeid":_malzemeID});
+
+    //_kaydedilecekMalzeme.update("malzemeid", (deger) => _malzemeID);
+
+
+
+
+    return true;
   }
 
   Future<bool> saveMessage(Mesaj kaydedilecekMesaj) async {
@@ -133,14 +173,7 @@ class FirestoreDBService implements DBBase {
 
     return true;
   }
-  @override
-  Future<bool> saveMalzeme(Malzeme malzeme) async {
 
-    await _firebaseDB
-        .collection("malzemeler")
-        .doc()
-        .set(malzeme.toMap());
-  }
 
   @override
   Future<DateTime> saatiGoster(String appUserID) async {
@@ -179,6 +212,13 @@ class FirestoreDBService implements DBBase {
 
 
   }
+
+  @override
+  Future<bool> updateMalzeme(malzeme, String yeniEn, String yeniBoy, String yeniAdet) {
+
+  }
+
+
 
 
 

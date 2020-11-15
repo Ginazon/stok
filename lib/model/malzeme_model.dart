@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class Malzeme {
-
+  final String malzemeid;
   final String kalinlik;
   final String type;
   final String en;
@@ -13,6 +13,7 @@ class Malzeme {
   Malzeme(
       {
       @required this.kalinlik,
+     this.malzemeid,
       @required this.type,
       @required this.en,
       @required this.boy,
@@ -23,6 +24,7 @@ class Malzeme {
     return {
 
       'kalinlik': kalinlik,
+      'malzemeid': malzemeid,
       'type': type,
       'en': en,
       'boy': boy,
@@ -34,6 +36,7 @@ class Malzeme {
   Malzeme.fromMap(Map<String, dynamic> map)
       :
         kalinlik = map['kalinlik'],
+        malzemeid = map['malzemeid'],
         type = map['type'],
         en = map['en'],
         boy = map['boy'],
@@ -42,6 +45,6 @@ class Malzeme {
 
   @override
   String toString() {
-    return 'Malzeme{ kalinlik: $kalinlik, type: $type, en: $en, boy: $boy, adet: $adet, yeri: $yeri}';
+    return 'Malzeme{malzemeid: $malzemeid, kalinlik: $kalinlik, type: $type, en: $en, boy: $boy, adet: $adet, yeri: $yeri}';
   }
 }

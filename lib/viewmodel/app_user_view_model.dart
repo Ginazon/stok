@@ -17,8 +17,10 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
   AppUserRepository _appUserRepository = locator<AppUserRepository>();
   AppUser _user;
   String emailHataMesaji, sifreHataMesaji;
+  Malzeme _malzeme;
 
   AppUser get user => _user;
+  Malzeme get malzeme => _malzeme;
 
   ViewState get state => _state;
 
@@ -174,6 +176,9 @@ class AppUserViewModel with ChangeNotifier implements AuthBase{
 
   Future<List<Konusma>> getAllConversations(String appUserID) async {
     return await _appUserRepository.getAllConversations(appUserID);
+  }
+  Future<List<Malzeme>>getAllMalzeme(String yeri) async {
+    return await _appUserRepository.getAllMalzeme(yeri);
   }
 
   Future<List<AppUser>> getUsersWithPagination(AppUser enSonGetirilenUser,

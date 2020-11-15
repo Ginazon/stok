@@ -24,7 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-  TabItem _currentTab = TabItem.Kullanicilar;
+  TabItem _currentTab = TabItem.Konusmalarim;
   Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
     TabItem.Kullanicilar: GlobalKey<NavigatorState>(),
     TabItem.Konusmalarim: GlobalKey<NavigatorState>(),
